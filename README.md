@@ -13,6 +13,8 @@ This repository holds two things:
 
 ## The main site
 
+![Screenshot of the FindARescue.ie homepage](FAR_homepage.png)
+
 A static, framework-free site: plain HTML, CSS and JavaScript. Visitors can browse and search rescues by animal type (dogs, cats, birds, small animals, equines, wildlife) and by province or county, and each entry links to the rescue's website, donation page and social media. There is also a map page and an About page.
 
 ### Structure
@@ -47,6 +49,8 @@ The site runs on Hostinger shared hosting (PHP and MySQL, no Node or Python). Ch
 ---
 
 ## The translation tool
+
+![Screenshot of the translation tool at translate.findarescue.ie](FAR_translate_homepage.png)
 
 `translate/` is a small PHP and MySQL web app served at **translate.findarescue.ie**. It lets several volunteers work together on the Irish version of the site's interface text. Some of that text starts as AI-generated Irish, and people review it, propose better versions and vote.
 
