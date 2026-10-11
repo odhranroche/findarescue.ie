@@ -2,7 +2,7 @@
 
 Source for [FindARescue.ie](https://findarescue.ie), a directory of animal rescues, shelters and welfare organisations across Ireland, and its companion translation tool, [translate.findarescue.ie](https://translate.findarescue.ie), which has its own repository: [translate.findarescue.ie](https://github.com/odhranroche/translate.findarescue.ie).
 
-This repository holds the main site. The translation tool lives in the same folder structure on Hostinger, so it sits inside `public_html/translate/` on disk, but it is a **separate git repository** that this one ignores.
+This repository holds the main site. The translation tool sits inside `public_html/translate/`, matching the server layout, but it is a **separate git repository** that this one ignores.
 
 | Part | What it is | Location |
 |---|---|---|
