@@ -22,3 +22,4 @@ error_log
 
 # If you add a build step later
 node_modules/
+public_html/translate/
