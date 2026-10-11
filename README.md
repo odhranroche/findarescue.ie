@@ -1,13 +1,13 @@
 # FindARescue.ie
 
-Source for [FindARescue.ie](https://findarescue.ie), a directory of animal rescues, shelters and welfare organisations across Ireland, and for its companion translation tool, [translate.findarescue.ie](https://translate.findarescue.ie).
+Source for [FindARescue.ie](https://findarescue.ie), a directory of animal rescues, shelters and welfare organisations across Ireland, and its companion translation tool, [translate.findarescue.ie](https://translate.findarescue.ie), which has its own repository: [translate.findarescue.ie](https://github.com/odhranroche/translate.findarescue.ie).
 
-This repository holds two things:
+This repository holds the main site. The translation tool lives in the same folder structure on Hostinger, so it sits inside `public_html/translate/` on disk, but it is a **separate git repository** that this one ignores.
 
 | Part | What it is | Location |
 |---|---|---|
 | **Main site** | The public directory, available in English and Irish (Gaeilge) | `public_html/` |
-| **Translation tool** | A separate web app where volunteers review and vote on Irish translations | `public_html/translate/` |
+| **Translation tool** | A separate web app where volunteers review and vote on Irish translations | `public_html/translate/` (own repo: [translate.findarescue.ie](https://github.com/odhranroche/translate.findarescue.ie)) |
 
 ---
 
@@ -32,7 +32,7 @@ public_html/
 ├── images/            Site images and rescue logos (images/RescueLogos/)
 ├── robots.txt
 ├── sitemap.xml
-└── translate/         The translation tool (see below)
+└── translate/         Translation tool (separate repository, not tracked here)
 ```
 
 ### How it fits together
@@ -52,47 +52,17 @@ The site runs on Hostinger shared hosting (PHP and MySQL, no Node or Python). Ch
 
 ![Screenshot of the translation tool at translate.findarescue.ie](FAR_translate_homepage.png)
 
-`translate/` is a small PHP and MySQL web app served at **translate.findarescue.ie**. It lets several volunteers work together on the Irish version of the site's interface text. Some of that text starts as AI-generated Irish, and people review it, propose better versions and vote.
+[translate.findarescue.ie](https://translate.findarescue.ie) is a small PHP and MySQL web app that lets several volunteers work together on the Irish version of the site's interface text. Some of that text starts as AI-generated Irish, and people review it, propose better versions and vote on them.
 
-### What it does
+- It reads this site's `translations.js`, shows each string with its AI and human translations, and lets contributors add translations and notes.
+- Each translator gets one Accept or Reject vote per translation, and the best-supported translation wins.
+- It exports a ready-to-paste `ga: { ... }` block, which is then copied into `translations.js` on the main site.
 
-- **Reads the site's strings.** It loads `translations.js` from a location set in its config file and syncs the keys into its own database. New keys are added, and when a key's English changes the old English is kept and affected translations are tagged "Older English". Keys removed from the file are hidden, but their history stays.
-- **Shows AI translations as a starting point.** Where `translations.js` already has Irish, that is imported as an AI entry credited to "Claude (AI)". Where the Irish is still an English placeholder, an AI suggestion comes from a seed table.
-- **Lets anyone add translations and notes.** Each string can have several translations and discussion notes from different contributors.
-- **Uses voting to pick the best one.** Each translator gets one vote per translation: Accept or Reject. The accepted translation is the one with the most accepts minus rejects, as long as that is above zero, and the newest wins a tie.
-- **Has two views.** "To translate" shows strings without an accepted translation, and "All text" shows everything. There is also search and a section filter.
-- **Exports the result.** It builds a ready-to-paste `ga: { ... }` block containing each key's accepted translation, which is then copied into `translations.js` on the main site.
-- **Lets people undo mistakes.** Deleting is a soft delete with a short Undo window, and the database records who deleted what and when.
-
-### Files
-
-| File | Purpose |
-|---|---|
-| `index.html` | The page translators use |
-| `api.php` | JSON API: list, add translation, add note, vote, delete, export, health check |
-| `config.php` | Database login and the location of `translations.js` (**not in this repo**, see below) |
-| `schema.sql` | Creates the database tables and seeds AI translations for placeholder strings. Safe to run again |
-| `.htaccess` | Blocks direct web access to `config.php`, `schema.sql` and the README, and adds `noindex` |
-| `README.md` | Detailed setup and behaviour notes |
-
-### Setup
-
-1. Create a MySQL database in hPanel and import `schema.sql` through phpMyAdmin.
-2. Create `translate/config.php` on the server. It defines the database host, name, user and password, the location of `translations.js` (`TRANSLATIONS_SOURCE`), the sync interval, a debug switch and the per-IP write limit. See `translate/README.md` for the details.
-3. Upload the other files in `translate/` to the subdomain's folder.
-4. Open the tool. The first load reads `translations.js` and fills the database.
-
-### Safeguards
-
-- Prepared statements for all queries, and escaped output.
-- Length limits and control-character stripping on input.
-- A custom request header is required for writes, and cross-origin requests are rejected.
-- A limit on writes per IP address per minute.
-- Search engines are told not to index it. Anyone with the link can still contribute.
+**Code, setup instructions and behaviour notes are in its own repository: [odhranroche/translate.findarescue.ie](https://github.com/odhranroche/translate.findarescue.ie).**
 
 ---
 
 ## Notes for working on this repo
 
-- **`translate/config.php` is deliberately not committed.** It contains database credentials, and `.gitignore` excludes it. Keep a copy of the settings somewhere safe, as the repo won't recover it.
-- **The database is not in git.** Translations, votes and notes live in MySQL on Hostinger. Export a dump from phpMyAdmin to back them up.
+- **`public_html/translate/` is ignored by this repo.** It has its own git repository inside it. Run git commands for the main site from the top-level `findarescue.ie/` folder, and for the translation tool from inside `public_html/translate/`.
+- **The database is not in git.** The translation tool's data (translations, votes and notes) lives in MySQL on Hostinger. Export a dump from phpMyAdmin to back it up.
