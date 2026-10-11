@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore Ireland's animal rescue network. Find and support local rescue centres, shelters, and animal welfare organisations near you.">
+  <meta name="theme-color" content="#0E3326">
+
+  <meta property="og:title" content="FindARescue.ie – Ireland's Animal Rescue Database">
+  <meta property="og:description" content="Find animal rescues across all 32 Irish counties.">
+  <meta property="og:image" content="https://findarescue.ie/images/FAR_logo3.png">
+  <meta property="og:url" content="https://findarescue.ie/">
+  <meta property="og:type" content="website">
+
+  <title>FindARescue.ie | Find Animal Rescues Across Ireland</title>
+  <link rel="canonical" href="https://findarescue.ie/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap">
+
+  <link rel="icon" type="image/x-icon" href="images/icon.png">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Load order is a hard constraint: resources.js → translations.js → app.js (no defer/async) -->
+  <script src="resources.js"></script>
+  <script src="translations.js"></script>
+  <script src="app.js"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HE9ERV2XF4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HE9ERV2XF4');
+  </script>
+
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": ["WebSite", "Organization"],
+      "name": "FindARescue.ie",
+      "url": "https://findarescue.ie",
+      "description": "Ireland's most comprehensive database of animal rescue organisations, shelters, and welfare groups.",
+      "logo": "https://findarescue.ie/images/FAR_logo3.png",
+      "email": "info@findarescue.ie",
+      "sameAs": [
+          "https://www.instagram.com/findarescue.ie/"
+          ],
+          "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://findarescue.ie/?search={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+          }
+  }
+  </script>
+</head>
+<body class="page-home">
+
+<a class="skip-link" href="#results" data-i18n="skipToResults">Skip to results</a>
+
+<!-- Navigation: shared. Keep identical in index.html, about.html and map.html (only the "active" link differs). -->
+<header class="nav-header">
+  <div class="nav-container">
+    <a href="index.html" class="brand" aria-label="FindARescue.ie home">
+      <img src="images/FAR_logo3.webp" data-src-en="images/FAR_logo3.webp" data-src-ga="images/FAR_logo3_ga.webp" alt="" width="36" height="36">
+      <span class="site-title">FindARescue<span class="tld">.ie</span></span>
+    </a>
+    <nav aria-label="Main">
+      <ul class="nav-tabs">
+        <li><a href="index.html" class="active" aria-current="page" data-i18n="navHome">Home</a></li>
+        <li><a href="map.html" data-i18n="navMap">Map</a></li>
+        <li><a href="about.html" data-i18n="navAbout">About</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="lang-switch" id="langToggle" onclick="toggleLang()" role="switch" aria-checked="false" aria-label="Switch to Irish">
+      <span class="lang-switch-track"><span class="lang-switch-thumb"></span></span>
+      <span class="lang-switch-label">English</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- Hero + search -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1 class="hero-title" data-i18n="heroTitle">Find an animal rescue near you</h1>
+        <p class="hero-lede" data-i18n="homeTagline">Ireland's most comprehensive animal rescue database.</p>
+
+        <!-- Search + location filter -->
+        <div class="search-panel" id="searchPanel" role="search">
+          <div class="search-field">
+            <svg class="icon search-icon" aria-hidden="true"><use href="icons.svg#i-search"/></svg>
+            <label for="search" class="visually-hidden" data-i18n="searchPlaceholder">Search rescues…</label>
+            <input type="search" id="search" autocomplete="off" enterkeyhint="search" data-i18n-placeholder="searchPlaceholder" placeholder="Search rescues…" oninput="renderResources(); updateUrl();">
+            <button type="button" class="search-clear" id="searchClear" data-i18n-aria="searchClear" aria-label="Clear search" hidden>
+              <svg class="icon" aria-hidden="true"><use href="icons.svg#i-x"/></svg>
+            </button>
+          </div>
+
+          <div class="location-filter" id="locationFilter">
+            <button type="button" class="location-trigger" id="locationTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="locationPanel">
+              <svg class="icon" aria-hidden="true"><use href="icons.svg#i-pin"/></svg>
+              <span data-i18n="filterLocationDefault">Filter by location</span>
+              <span class="count-badge" id="locationCount" style="display:none;"></span>
+              <svg class="icon chevron" aria-hidden="true"><use href="icons.svg#i-chev"/></svg>
+            </button>
+
+            <div class="location-panel" id="locationPanel">
+              <div class="location-panel-head">
+                <span class="location-panel-title" data-i18n="filterLocationDefault">Filter by location</span>
+                <button type="button" class="icon-btn location-close" id="locationCloseBtn" data-i18n-aria="closeLabel" aria-label="Close">
+                  <svg class="icon" aria-hidden="true"><use href="icons.svg#i-x"/></svg>
+                </button>
+              </div>
+              <div class="location-panel-list" id="locationPanelList">
+                <!-- Province groups + counties populated via JavaScript -->
+              </div>
+              <div class="location-panel-footer">
+                <button type="button" class="btn btn-ghost location-clear-btn" id="locationClearAllBtn" data-i18n="locationClearAll">Clear all</button>
+                <button type="button" class="btn btn-primary location-done-btn" id="locationDoneBtn" data-i18n="locationDone">Done</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="hero-trust">
+          <svg class="icon" aria-hidden="true"><use href="icons.svg#i-shield"/></svg>
+          <span data-i18n="heroTrust">Listings aren't vetted or endorsed.</span>
+          <button type="button" class="link-btn" data-open-safety data-i18n="safetyLinkText">Online safety information</button>
+        </p>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="hero-logo-card">
+          <img src="images/FAR_logo3.png" data-src-en="images/FAR_logo3.png" data-src-ga="images/FAR_logo3_ga.png" alt="" width="1600" height="1257">
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Directory -->
+  <section class="directory" id="directory" aria-labelledby="resultsCount">
+    <div class="container">
+      <div class="directory-toolbar">
+        <div class="category-scroller">
+          <div class="category-pills" id="categoryFilter" role="group" data-i18n-aria="categoriesLabel" aria-label="Animal type">
+            <!-- Category buttons populated dynamically -->
+          </div>
+        </div>
+
+        <div class="results-meta">
+          <p class="results-count" id="resultsCount" aria-live="polite"></p>
+          <div class="chip-row" id="locationChips"></div>
+          <button type="button" class="link-btn reset-button" id="resetBtn" onclick="resetFilters()" hidden>
+            <svg class="icon" aria-hidden="true"><use href="icons.svg#i-reset"/></svg>
+            <span data-i18n="clearFilters">Clear filters</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="results" class="grid" tabindex="-1"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Online Safety Information dialog -->
+<dialog id="safetyModal" class="modal" aria-labelledby="safetyModalTitle">
+  <div class="modal-box">
+    <button type="button" class="icon-btn modal-close" data-close-safety data-i18n-aria="closeLabel" aria-label="Close">
+      <svg class="icon" aria-hidden="true"><use href="icons.svg#i-x"/></svg>
+    </button>
+    <span class="modal-icon"><svg class="icon" aria-hidden="true"><use href="icons.svg#i-shield"/></svg></span>
+    <h2 id="safetyModalTitle" data-i18n="safetyModalTitle">Online safety policy</h2>
+
+    <p data-i18n="safetyModalP1">FindARescue.ie helps connect people with animal rescues and rehoming organisations. We do not vet, endorse, or verify the organisations listed on this website.</p>
+    <p data-i18n="safetyModalP2">Before donating, adopting, fostering, or sharing personal information, we recommend that you:</p>
+
+    <ul class="check-list">
+      <li data-i18n="safetyModalLi1">Research the organisation independently.</li>
+      <li data-i18n="safetyModalLi2">Check for a website, social media presence, and contact details.</li>
+      <li data-i18n="safetyModalLi3">If the organisation claims to be a registered charity, verify its Registered Charity Number (RCN) on the Charities Regulator's public register.</li>
+      <li data-i18n="safetyModalLi4">Ask questions about the animal's history, health, and care.</li>
+      <li data-i18n="safetyModalLi5">Request veterinary records or adoption paperwork where appropriate.</li>
+      <li data-i18n="safetyModalLi6">Visit the rescue or arrange a video call if possible.</li>
+      <li data-i18n="safetyModalLi7">Be cautious of requests for unusual payment methods or urgent payments.</li>
+      <li data-i18n="safetyModalLi8">Never share sensitive financial or personal information unless necessary and you are confident the organisation is legitimate.</li>
+    </ul>
+
+    <p class="modal-callout" data-i18n="safetyModalP3">If something seems suspicious, trust your judgement and discontinue contact.</p>
+    <p class="modal-fine" data-i18n="safetyModalP4">FindARescue.ie is not responsible for transactions, agreements, communications, or disputes between users and organisations listed on the site.</p>
+  </div>
+</dialog>
+
+<!-- Footer: shared. Keep identical in index.html and about.html. -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="brand brand-light">
+        <img src="images/FAR_logo3.webp" data-src-en="images/FAR_logo3.webp" data-src-ga="images/FAR_logo3_ga.webp" alt="" width="36" height="36">
+        <span class="site-title">FindARescue<span class="tld">.ie</span></span>
+      </a>
+      <p data-i18n="footerTagline">A free, volunteer-run directory of animal rescues across all 32 counties.</p>
+      <p class="footer-values" data-i18n="footerValues">No ads · No sponsorship · No data sold</p>
+    </div>
+    <nav class="footer-col" aria-label="Footer">
+      <h2 data-i18n="footerExplore">Explore</h2>
+      <a href="index.html" data-i18n="navHome">Home</a>
+      <a href="map.html" data-i18n="navMap">Map</a>
+      <a href="about.html" data-i18n="navAbout">About</a>
+      <button type="button" class="link-btn" data-open-safety data-i18n="safetyLinkText">Online safety information</button>
+    </nav>
+    <div class="footer-col">
+      <h2 data-i18n="footerContact">Contact</h2>
+      <a href="mailto:info@findarescue.ie">info@findarescue.ie</a>
+      <a href="https://www.instagram.com/findarescue.ie/" target="_blank" rel="noopener">@findarescue.ie</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span data-i18n="footerCopyright">Copyright FindARescue.ie 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>

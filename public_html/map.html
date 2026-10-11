@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive map of animal rescues, pounds, SPCAs and sanctuaries across all 32 Irish counties.">
+  <meta name="theme-color" content="#0E3326">
+
+  <meta property="og:title" content="Animal Rescue Map Ireland | FindARescue.ie">
+  <meta property="og:description" content="Find animal rescues across all 32 Irish counties.">
+  <meta property="og:image" content="https://findarescue.ie/images/FAR_logo3.png">
+  <meta property="og:url" content="https://findarescue.ie/map.html">
+  <meta property="og:type" content="website">
+
+  <title>Animal Rescue Map Ireland | FindARescue.ie</title>
+  <link rel="canonical" href="https://findarescue.ie/map.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap">
+  <link rel="icon" type="image/x-icon" href="images/icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="translations.js"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HE9ERV2XF4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HE9ERV2XF4');
+  </script>
+
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": ["WebSite", "Organization"],
+      "name": "FindARescue.ie",
+      "url": "https://findarescue.ie",
+      "description": "Ireland's most comprehensive database of animal rescue organisations, shelters, and welfare groups.",
+      "logo": "https://findarescue.ie/images/FAR_logo3.png",
+      "email": "info@findarescue.ie",
+      "sameAs": [
+          "https://www.instagram.com/findarescue.ie/"
+          ],
+          "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://findarescue.ie/?search={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+          }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://findarescue.ie/" },
+          { "@type": "ListItem", "position": 2, "name": "Map", "item": "https://findarescue.ie/map.html" }
+      ]
+  }
+  </script>
+</head>
+<body class="map-page">
+
+<!-- Navigation: shared. Keep identical in index.html, about.html and map.html (only the "active" link differs). -->
+<header class="nav-header">
+  <div class="nav-container">
+    <a href="index.html" class="brand" aria-label="FindARescue.ie home">
+      <img src="images/FAR_logo3.webp" data-src-en="images/FAR_logo3.webp" data-src-ga="images/FAR_logo3_ga.webp" alt="" width="36" height="36">
+      <span class="site-title">FindARescue<span class="tld">.ie</span></span>
+    </a>
+    <nav aria-label="Main">
+      <ul class="nav-tabs">
+        <li><a href="index.html" data-i18n="navHome">Home</a></li>
+        <li><a href="map.html" class="active" aria-current="page" data-i18n="navMap">Map</a></li>
+        <li><a href="about.html" data-i18n="navAbout">About</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="lang-switch" id="langToggle" onclick="toggleLang()" role="switch" aria-checked="false" aria-label="Switch to Irish">
+      <span class="lang-switch-track"><span class="lang-switch-thumb"></span></span>
+      <span class="lang-switch-label">English</span>
+    </button>
+  </div>
+</header>
+
+<main class="map-main">
+  <h1 class="visually-hidden" data-i18n="mapTitle">Rescue map</h1>
+
+  <!-- Branded loading state: sits behind the map and shows until it paints -->
+  <div class="map-loading" id="mapLoading" aria-hidden="true">
+    <span class="map-loading-icon"><svg class="icon"><use href="icons.svg#i-paw"/></svg></span>
+    <span data-i18n="mapLoading">Loading map…</span>
+  </div>
+
+  <div class="map-container">
+    <iframe
+      src="https://www.google.com/maps/d/embed?mid=1wC0Dx4KNfyGfaCO0oU62wQJZM41yb1w&amp;ehbc=0E3326&amp;noprof=1"
+      title="Map of animal rescues in Ireland"
+      onload="document.getElementById('mapLoading').hidden = true"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- Location accuracy note (dismissible) -->
+  <aside class="map-note" id="mapNote" role="note">
+    <span class="map-note-icon"><svg class="icon" aria-hidden="true"><use href="icons.svg#i-info"/></svg></span>
+    <div class="map-note-body">
+      <strong data-i18n="overlayNote">Note:</strong>
+      <span data-i18n="overlayText">Rescue coordinates are approximate. They do not reflect the exact location of rescues. Contact the rescue organisation to get the actual location.</span>
+      <div class="map-note-actions">
+        <a href="index.html">
+          <svg class="icon" aria-hidden="true"><use href="icons.svg#i-all"/></svg>
+          <span data-i18n="mapBrowseList">Browse as a list</span>
+        </a>
+      </div>
+    </div>
+    <button type="button" class="icon-btn" onclick="document.getElementById('mapNote').hidden = true" data-i18n-aria="mapDismiss" aria-label="Dismiss">
+      <svg class="icon" aria-hidden="true"><use href="icons.svg#i-x"/></svg>
+    </button>
+  </aside>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn about FindARescue.ie - Ireland's most comprehensive animal rescue database.">
+  <meta name="theme-color" content="#0E3326">
+
+  <meta property="og:title" content="About FindARescue.ie – Ireland's Animal Rescue Database">
+  <meta property="og:description" content="Find animal rescues across all 32 Irish counties.">
+  <meta property="og:image" content="https://findarescue.ie/images/FAR_logo3.png">
+  <meta property="og:url" content="https://findarescue.ie/about.html">
+  <meta property="og:type" content="website">
+
+  <title>About Us | FindARescue.ie – Ireland's Animal Rescue Database</title>
+  <link rel="canonical" href="https://findarescue.ie/about.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap">
+  <link rel="icon" type="image/x-icon" href="images/icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="translations.js"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HE9ERV2XF4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HE9ERV2XF4');
+  </script>
+
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": ["WebSite", "Organization"],
+      "name": "FindARescue.ie",
+      "url": "https://findarescue.ie",
+      "description": "Ireland's most comprehensive database of animal rescue organisations, shelters, and welfare groups.",
+      "logo": "https://findarescue.ie/images/FAR_logo3.png",
+      "email": "info@findarescue.ie",
+      "sameAs": [
+          "https://www.instagram.com/findarescue.ie/"
+          ],
+          "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://findarescue.ie/?search={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+          }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://findarescue.ie/" },
+          { "@type": "ListItem", "position": 2, "name": "About", "item": "https://findarescue.ie/about.html" }
+      ]
+  }
+  </script>
+</head>
+<body class="page-about">
+
+<a class="skip-link" href="#main" data-i18n="skipToContent">Skip to content</a>
+
+<!-- Navigation: shared. Keep identical in index.html, about.html and map.html (only the "active" link differs). -->
+<header class="nav-header">
+  <div class="nav-container">
+    <a href="index.html" class="brand" aria-label="FindARescue.ie home">
+      <img src="images/FAR_logo3.webp" data-src-en="images/FAR_logo3.webp" data-src-ga="images/FAR_logo3_ga.webp" alt="" width="36" height="36">
+      <span class="site-title">FindARescue<span class="tld">.ie</span></span>
+    </a>
+    <nav aria-label="Main">
+      <ul class="nav-tabs">
+        <li><a href="index.html" data-i18n="navHome">Home</a></li>
+        <li><a href="map.html" data-i18n="navMap">Map</a></li>
+        <li><a href="about.html" class="active" aria-current="page" data-i18n="navAbout">About</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="lang-switch" id="langToggle" onclick="toggleLang()" role="switch" aria-checked="false" aria-label="Switch to Irish">
+      <span class="lang-switch-track"><span class="lang-switch-thumb"></span></span>
+      <span class="lang-switch-label">English</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- 1. Hero: what this is, and why it exists (mirrors the home page hero) -->
+  <section class="hero about-hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1 class="hero-title" data-i18n="aboutPageTitle">About FindARescue.ie</h1>
+        <p class="hero-lede" data-i18n="aboutIntro">FindARescue.ie is Ireland's most comprehensive database of animal rescue organisations, shelters, and welfare groups. Our mission is to:</p>
+        <ul class="mission-list">
+          <li><svg class="icon" aria-hidden="true"><use href="icons.svg#i-hand"/></svg><span data-i18n="aboutMissionLine1">Promote the incredible work of animal rescue organisations across Ireland</span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="icons.svg#i-house"/></svg><span data-i18n="aboutMissionLine2">Encourage pet adoption instead of purchasing</span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="icons.svg#i-wildlife"/></svg><span data-i18n="aboutMissionLine3">Raise awareness of local wildlife welfare groups</span></li>
+        </ul>
+      </div>
+      <figure class="hero-art about-photo">
+        <div class="hero-logo-card photo-blob">
+          <img src="images/toast.jpg" alt="Photo of author and dog Toast" width="500" height="374">
+        </div>
+        <figcaption data-i18n="aboutPhotoCaption">Me and foster dog Toast.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 2. The story -->
+  <section class="about-block">
+    <div class="container about-row">
+      <div class="about-label">
+        <span class="about-icon"><svg class="icon" aria-hidden="true"><use href="icons.svg#i-heart"/></svg></span>
+        <h2 class="section-title" data-i18n="aboutWhoTitle">Who we are</h2>
+      </div>
+      <div class="about-body prose">
+        <p data-i18n="aboutWhoP1">FindARescue.ie is a private, fully volunteer-led project. We don't receive any funding, grants, or sponsorships. We do not advertise and we do not sell any user data.</p>
+        <p data-i18n="aboutWhoP2">I created this website as a passion project after working with many amazing animal rescues and seeing how dedicated and hardworking these organisations are. Even though they work night and day to support animals, they never have enough support or resources.</p>
+
+        <blockquote class="pull-quote">
+          <p class="pull-label" data-i18n="aboutGoalLabel">Our goal:</p>
+          <p data-i18n="aboutGoalText">To make it as easy as possible for people to find, support, and connect with animal rescue organisations throughout Ireland.</p>
+        </blockquote>
+
+        <p data-i18n="aboutWhoP3">My goal is to shine a light on these organisations and ensure that the public is aware of the great work that animal rescue groups do. In turn I hope we can get more animals adopted instead of bought, more donations, more volunteers, and more support for animal welfare in general.</p>
+
+        <p class="inline-note"><svg class="icon" aria-hidden="true"><use href="icons.svg#i-shield"/></svg><span data-i18n="aboutWhoP4">NB: FindARescue.ie is not a rescue or charity organisation and we will never reach out asking for donations. Report any suspicious messages immediately.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Who it's for -->
+  <section class="about-block">
+    <div class="container about-row">
+      <div class="about-label">
+        <span class="about-icon"><svg class="icon" aria-hidden="true"><use href="icons.svg#i-paw"/></svg></span>
+        <h2 class="section-title" data-i18n="aboutForWhoTitle">Who this website is for</h2>
+      </div>
+      <div class="about-body">
+        <div class="panel audience-panel">
+          <div>
+            <h3 data-i18n="aboutForWhoIntro">This website is helpful for many people, including:</h3>
+            <ul class="check-list">
+              <li data-i18n="aboutForWhoLi1">Prospective pet adopters or foster homes</li>
+              <li data-i18n="aboutForWhoLi2">People looking to surrender an animal</li>
+              <li data-i18n="aboutForWhoLi3">Anyone who has encountered injured wildlife</li>
+              <li data-i18n="aboutForWhoLi4">Animal rescue donors and volunteers</li>
+              <li data-i18n="aboutForWhoLi5">Animal welfare advocates</li>
+            </ul>
+          </div>
+          <div>
+            <h3 data-i18n="aboutNotForIntro">We generally do not cover any corporate activity, including:</h3>
+            <ul class="cross-list">
+              <li data-i18n="aboutNotForLi1">Animal breeding, buying, selling</li>
+              <li data-i18n="aboutNotForLi2">Pet shops</li>
+              <li data-i18n="aboutNotForLi3">Service animals</li>
+              <li data-i18n="aboutNotForLi4">Grooming, walking, or training services</li>
+              <li data-i18n="aboutNotForLi5">Pest control</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Contact -->
+  <section class="about-block" id="contact">
+    <div class="container about-row">
+      <div class="about-label">
+        <span class="about-icon"><svg class="icon" aria-hidden="true"><use href="icons.svg#i-mail"/></svg></span>
+        <h2 class="section-title" data-i18n="aboutContactTitle">Contact us</h2>
+      </div>
+      <div class="about-body prose">
+        <p data-i18n="aboutContactIntro">If you're an animal rescue organisation that's not yet listed on our platform, or if you notice any information that needs updating, please get in touch. We're continuously expanding our database to ensure it remains the most comprehensive resource for animal rescue in Ireland.</p>
+        <div class="btn-row contact-buttons">
+          <a class="btn btn-primary" href="mailto:info@findarescue.ie"><svg class="icon" aria-hidden="true"><use href="icons.svg#i-mail"/></svg><span>info@findarescue.ie</span></a>
+          <a class="btn btn-secondary" href="https://www.instagram.com/findarescue.ie/" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="icons.svg#i-ig"/></svg><span>@findarescue.ie</span></a>
+        </div>
+        <p class="muted-note" data-i18n="aboutContactFeedback">We'd love to hear your feedback, suggestions, or any questions you might have.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Support -->
+  <section class="about-block" id="support">
+    <div class="container about-row">
+      <div class="about-label">
+        <span class="about-icon"><svg class="icon" aria-hidden="true"><use href="icons.svg#i-coffee"/></svg></span>
+        <h2 class="section-title" data-i18n="aboutSupportTitle">Support us</h2>
+      </div>
+      <div class="about-body">
+        <div class="prose">
+          <p data-i18n="aboutSupportIntro">FindARescue.ie is run entirely by myself with no advertising or sponsorship. Keeping the site online does come with a small cost each year:</p>
+          <p data-i18n="aboutSupportOutro">If you'd like to help keep FindARescue.ie running, even a small contribution helps. Every cent goes directly towards running costs — nothing else.</p>
+        </div>
+
+        <div class="panel support-panel">
+          <ul class="cost-list">
+            <li data-i18n="aboutSupportHosting">Hosting — €114.38 / year</li>
+            <li data-i18n="aboutSupportDomain">Domain — €36.99 / year</li>
+          </ul>
+
+          <div class="fundraising-tracker">
+            <div class="tracker-label">
+              <span data-i18n="aboutTrackerLabel">2026 running costs</span>
+              <span class="tracker-raised" id="raisedLabel">€0</span>
+            </div>
+            <div class="progress-bar-outer" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="150" aria-label="Fundraising progress">
+              <div class="progress-bar-inner" id="progressBar"></div>
+            </div>
+            <div class="tracker-sublabel" id="goalLabel" data-i18n="aboutTrackerGoal">Goal: €150</div>
+          </div>
+
+          <div class="bmc-wrapper">
+            <a href="https://buymeacoffee.com/findarescue.ie" target="_blank" rel="noopener noreferrer" class="btn btn-accent bmc-link" aria-label="Support FindARescue.ie on Buy Me a Coffee">
+              <svg class="icon" aria-hidden="true"><use href="icons.svg#i-coffee"/></svg><span data-i18n="aboutBmcButton">Buy me a coffee</span>
+            </a>
+            <span class="bmc-note" data-i18n="aboutBmcNote">No account needed — any amount is greatly appreciated! ☕</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer: shared. Keep identical in index.html and about.html. -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="brand brand-light">
+        <img src="images/FAR_logo3.webp" data-src-en="images/FAR_logo3.webp" data-src-ga="images/FAR_logo3_ga.webp" alt="" width="36" height="36">
+        <span class="site-title">FindARescue<span class="tld">.ie</span></span>
+      </a>
+      <p data-i18n="footerTagline">A free, volunteer-run directory of animal rescues across all 32 counties.</p>
+      <p class="footer-values" data-i18n="footerValues">No ads · No sponsorship · No data sold</p>
+    </div>
+    <nav class="footer-col" aria-label="Footer">
+      <h2 data-i18n="footerExplore">Explore</h2>
+      <a href="index.html" data-i18n="navHome">Home</a>
+      <a href="map.html" data-i18n="navMap">Map</a>
+      <a href="about.html" data-i18n="navAbout">About</a>
+      <a href="index.html#safety" data-i18n="safetyLinkText">Online safety information</a>
+    </nav>
+    <div class="footer-col">
+      <h2 data-i18n="footerContact">Contact</h2>
+      <a href="mailto:info@findarescue.ie">info@findarescue.ie</a>
+      <a href="https://www.instagram.com/findarescue.ie/" target="_blank" rel="noopener">@findarescue.ie</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span data-i18n="footerCopyright">Copyright FindARescue.ie 2026</span>
+  </div>
+</footer>
+
+<script>
+  // Animate the progress bar on page load.
+  // Update `raised` below whenever the actual amount changes.
+  (function () {
+    const raised = 35;        // ← update this value as donations come in
+    const goal   = 150;
+
+    const pct = Math.min((raised / goal) * 100, 100);
+
+    const bar   = document.getElementById('progressBar');
+    const label = document.getElementById('raisedLabel');
+    const outer = bar.closest('[role="progressbar"]');
+
+    function setLabel() {
+      label.textContent = '€' + raised.toFixed(2) + ' ' + (typeof t === 'function' ? t('aboutRaised') : 'raised');
+    }
+    setLabel();
+    document.getElementById('langToggle').addEventListener('click', setLabel);
+    outer.setAttribute('aria-valuenow', raised.toFixed(2));
+    outer.setAttribute('aria-valuemax', goal);
+
+    // Trigger CSS transition after a short delay so it animates in
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        bar.style.width = pct + '%';
+      }, 200);
+    });
+  })();
+</script>
+
+</body>
+</html>

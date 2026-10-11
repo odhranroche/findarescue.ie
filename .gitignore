@@ -1,0 +1,24 @@
+# Secrets: database login for the translation tool
+public_html/translate/config.php
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Environment files and server leftovers
+.env
+.env.*
+error_log
+*.log
+
+# Backups / archives / database dumps
+*.zip
+*.bak
+*.old
+*.sql.gz
+
+# If you add a build step later
+node_modules/
