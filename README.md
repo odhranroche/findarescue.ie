@@ -1,13 +1,13 @@
 # FindARescue.ie
 
-Source for [FindARescue.ie](https://findarescue.ie), a directory of animal rescues, shelters and welfare organisations across Ireland, and its companion translation tool, [translate.findarescue.ie](https://translate.findarescue.ie), which has its own repository: [translate.findarescue.ie](https://github.com/odhranroche/translate.findarescue.ie).
+Source for [FindARescue.ie](https://findarescue.ie), a directory of animal rescues, shelters and welfare organisations across Ireland. The companion translation tool at [translate.findarescue.ie](https://translate.findarescue.ie) has its own repository: [odhranroche/translate.findarescue.ie](https://github.com/odhranroche/translate.findarescue.ie).
 
-This repository holds the main site. The translation tool sits inside `public_html/translate/`, matching the server layout, but it is a **separate git repository** that this one ignores.
+This repository holds the main site only. The translation tool sits inside `public_html/translate/`, matching the server layout, but it is a **separate git repository** that this one ignores.
 
 | Part | What it is | Location |
 |---|---|---|
 | **Main site** | The public directory, available in English and Irish (Gaeilge) | `public_html/` |
-| **Translation tool** | A separate web app where volunteers review and vote on Irish translations | `public_html/translate/` (own repo: [translate.findarescue.ie](https://github.com/odhranroche/translate.findarescue.ie)) |
+| **Translation tool** | Separate repository: [odhranroche/translate.findarescue.ie](https://github.com/odhranroche/translate.findarescue.ie) | `public_html/translate/` (ignored here) |
 
 ---
 
@@ -48,21 +48,6 @@ The site runs on Hostinger shared hosting (PHP and MySQL, no Node or Python). Ch
 
 ---
 
-## The translation tool
-
-![Screenshot of the translation tool at translate.findarescue.ie](FAR_translate_homepage.png)
-
-[translate.findarescue.ie](https://translate.findarescue.ie) is a small PHP and MySQL web app that lets several volunteers work together on the Irish version of the site's interface text. Some of that text starts as AI-generated Irish, and people review it, propose better versions and vote on them.
-
-- It reads this site's `translations.js`, shows each string with its AI and human translations, and lets contributors add translations and notes.
-- Each translator gets one Accept or Reject vote per translation, and the best-supported translation wins.
-- It exports a ready-to-paste `ga: { ... }` block, which is then copied into `translations.js` on the main site.
-
-**Code, setup instructions and behaviour notes are in its own repository: [odhranroche/translate.findarescue.ie](https://github.com/odhranroche/translate.findarescue.ie).**
-
----
-
 ## Notes for working on this repo
 
 - **`public_html/translate/` is ignored by this repo.** It has its own git repository inside it. Run git commands for the main site from the top-level `findarescue.ie/` folder, and for the translation tool from inside `public_html/translate/`.
-- **The database is not in git.** The translation tool's data (translations, votes and notes) lives in MySQL on Hostinger. Export a dump from phpMyAdmin to back it up.
