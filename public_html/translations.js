@@ -328,7 +328,7 @@ const translations = {
     // Redesign (2026) — new UI strings
     skipToResults: "Skip to results", // TODO (ga)
     skipToContent: "Skip to content", // TODO (ga)
-    heroTitle: "Find an animal rescue near you", // TODO (ga)
+    heroTitle: "Aimsigh eagraíocht tarrthála ainmhithe in aice leat", // TODO (ga)
     heroTrust: "Listings aren't vetted or endorsed.", // TODO (ga)
     searchClear: "Clear search", // TODO (ga)
     categoriesLabel: "Animal type", // TODO (ga)
