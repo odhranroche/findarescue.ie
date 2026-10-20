@@ -360,6 +360,78 @@ function matchesCategory(resource, cat) {
 }
 
 // ==========================================================================
+// Registered-charity tick
+// A small tick after the rescue's name. Hover / keyboard focus (desktop) or
+// a tap (touch) shows "Registered charity number: X" in one shared bubble.
+// ==========================================================================
+let charityTipEl = null;
+let charityTipOwner = null;
+let lastPointerType = "mouse";
+
+function charityTipText(rcn) {
+  return t("charityBadgeTooltip").trim() + " " + rcn;
+}
+
+function getCharityTip() {
+  if (!charityTipEl) {
+    charityTipEl = document.createElement("div");
+    charityTipEl.id = "charityTip";
+    charityTipEl.className = "charity-tip";
+    charityTipEl.setAttribute("role", "tooltip");
+    charityTipEl.hidden = true;
+    document.body.appendChild(charityTipEl);
+  }
+  return charityTipEl;
+}
+
+function showCharityTip(btn) {
+  const tip = getCharityTip();
+  tip.textContent = btn.dataset.tip;
+  tip.hidden = false;
+  const r = btn.getBoundingClientRect();
+  const margin = 8;
+  const left = Math.max(margin, Math.min(r.left + r.width / 2 - tip.offsetWidth / 2, window.innerWidth - tip.offsetWidth - margin));
+  let top = r.bottom + 6;
+  if (top + tip.offsetHeight > window.innerHeight - margin) top = Math.max(margin, r.top - tip.offsetHeight - 6);
+  tip.style.left = left + "px";
+  tip.style.top = top + "px";
+  if (charityTipOwner && charityTipOwner !== btn) charityTipOwner.removeAttribute("aria-describedby");
+  btn.setAttribute("aria-describedby", "charityTip");
+  charityTipOwner = btn;
+}
+
+function hideCharityTip() {
+  if (!charityTipEl || charityTipEl.hidden) return false;
+  charityTipEl.hidden = true;
+  if (charityTipOwner) charityTipOwner.removeAttribute("aria-describedby");
+  charityTipOwner = null;
+  return true;
+}
+
+function buildCharityTick(rcn) {
+  const text = charityTipText(rcn);
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "charity-tick";
+  btn.dataset.tip = text;
+  btn.setAttribute("aria-label", text);
+  btn.innerHTML = icon("badge");
+  btn.addEventListener("pointerdown", (e) => { lastPointerType = e.pointerType; });
+  btn.addEventListener("keydown", () => { lastPointerType = "key"; });
+  btn.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") showCharityTip(btn); });
+  btn.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse" && document.activeElement !== btn) hideCharityTip(); });
+  btn.addEventListener("focus", () => { if (btn.matches(":focus-visible")) showCharityTip(btn); });
+  btn.addEventListener("blur", hideCharityTip);
+  btn.addEventListener("click", () => {
+    // Mouse users already see the bubble from hovering, so a click keeps it
+    // open; touch and keyboard users toggle it.
+    if (lastPointerType === "mouse" || charityTipOwner !== btn || charityTipEl.hidden) showCharityTip(btn);
+    else hideCharityTip();
+  });
+  return btn;
+}
+
+// ==========================================================================
 // Card rendering
 // ==========================================================================
 function buildCard(resource) {
@@ -405,6 +477,7 @@ function buildCard(resource) {
   mainLink.rel = "noopener noreferrer";
   mainLink.textContent = status.title;
   title.appendChild(mainLink);
+  if (resource.rcn) title.appendChild(buildCharityTick(resource.rcn));
   heading.appendChild(title);
   head.appendChild(heading);
 
@@ -437,24 +510,15 @@ function buildCard(resource) {
   }
   card.appendChild(head);
 
-  // --- Status badges
-  if (resource.rcn || status.inactive) {
+  // --- Status badges (the registered-charity tick sits beside the title instead)
+  if (status.inactive) {
     const badges = document.createElement("div");
     badges.className = "card-badges";
-    if (resource.rcn) {
-      const charityBadge = document.createElement("span");
-      charityBadge.className = "badge badge-charity charity-badge";
-      charityBadge.title = t("charityBadgeTooltip") + resource.rcn;
-      charityBadge.innerHTML = `${icon("badge")}<span>${escapeHtml(t("charityBadgeLabel"))}</span>`;
-      badges.appendChild(charityBadge);
-    }
-    if (status.inactive) {
-      const warn = document.createElement("span");
-      warn.className = "badge badge-warn";
-      if (status.note) warn.title = status.note;
-      warn.innerHTML = `${icon("alert")}<span>${escapeHtml(t("inactiveLabel"))}</span>`;
-      badges.appendChild(warn);
-    }
+    const warn = document.createElement("span");
+    warn.className = "badge badge-warn";
+    if (status.note) warn.title = status.note;
+    warn.innerHTML = `${icon("alert")}<span>${escapeHtml(t("inactiveLabel"))}</span>`;
+    badges.appendChild(warn);
     card.appendChild(badges);
   }
 
@@ -522,6 +586,7 @@ function buildCard(resource) {
 // Main render
 // ==========================================================================
 function renderResources() {
+  hideCharityTip();
   const searchInput = document.getElementById("search");
   const container = document.getElementById("results");
   if (!searchInput || !container) return;
@@ -643,6 +708,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!e.target.closest("#locationFilter")) closeLocationPanel();
   });
 
+  // Charity tick bubble: close on any outside tap, scroll or resize
+  document.addEventListener("click", (e) => { if (!e.target.closest(".charity-tick")) hideCharityTip(); });
+  window.addEventListener("scroll", hideCharityTip, { passive: true });
+  window.addEventListener("resize", hideCharityTip);
+
   // Search clear button
   document.getElementById("searchClear").addEventListener("click", () => {
     searchInput.value = "";
@@ -654,6 +724,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Escape closes the location panel
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
+      hideCharityTip();
       if (closeLocationPanel()) document.getElementById("locationTrigger").focus();
     }
   });
