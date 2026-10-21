@@ -184,6 +184,10 @@ const translations = {
     mapDismiss: "Dismiss",
     aboutBmcButton: "Buy me a coffee",
     aboutRaised: "raised",
+    aboutContributorsTitle: "Contributors",
+    aboutContributorsIntro: "I am so grateful to everyone who has contributed to FindARescue. These lovely people all helped the development of the website and I am extremely thankful for them:",
+    aboutDonatorsTitle: "Donators",
+    aboutTranslatorsTitle: "Translators",
   },
   // ga version 2 - 8 Oct 2026
   ga: {
@@ -350,6 +354,10 @@ const translations = {
     mapDismiss: "Dún", // TODO (ga)
     aboutBmcButton: "Buy me a coffee", // TODO (ga)
     aboutRaised: "raised", // TODO (ga)
+    aboutContributorsTitle: "Contributors", // TODO (ga)
+    aboutContributorsIntro: "I am so grateful to everyone who has contributed to FindARescue. These lovely people all helped the development of the website and I am extremely thankful for them:", // TODO (ga)
+    aboutDonatorsTitle: "Donators", // TODO (ga)
+    aboutTranslatorsTitle: "Translators", // TODO (ga)
   },
 
 };
