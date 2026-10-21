@@ -1260,6 +1260,8 @@ body.map-page { height: 100dvh; min-height: 0; overflow: hidden; }
   border-radius: var(--r-lg);
   padding: clamp(20px, 3vw, 32px);
 }
+/* About: every panel shares the same reading width as the body text */
+.about-body > .panel { max-width: 40em; }
 .audience-panel {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1276,7 +1278,7 @@ body.map-page { height: 100dvh; min-height: 0; overflow: hidden; }
 .contact-buttons { margin-top: var(--s-2); }
 .prose .muted-note { font-size: var(--text-sm); color: var(--muted); }
 
-.support-panel { display: grid; gap: var(--s-6); max-width: 40em; }
+.support-panel { display: grid; gap: var(--s-6); }
 .cost-list { display: grid; }
 .cost-list li {
   padding: var(--s-3) 0;
